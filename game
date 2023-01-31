@@ -1,0 +1,62 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class RollTheDice {
+    public static void main(String[] args) {
+        //in this game, you win if you travel the game board of 20 spaces within five die rolls
+        //you lose if the value != 20
+
+        Scanner scanner = new Scanner(System.in);
+        int option = 0;
+        //menu
+        System.out.println("=============================");
+        System.out.println("Welcome to Roll the Die game!");
+        System.out.println("Travel 20 spaces to win!");
+        System.out.println("");
+        do {
+            System.out.println("Menu:");
+            System.out.println("1 - Start!");
+            System.out.println("2 - Exit!");
+            option = scanner.nextInt();
+
+            if(option == 2) {
+                System.out.println("Stopping program.");
+                break;
+            }
+            //bug check
+            if(option != 1 && option != 2) {
+                System.out.println("ERROR, stopping program.");
+                break;
+            }
+            System.out.println("=============================");
+
+            //number of rolls
+            int total = 0;
+            int goal = 20;
+            int math = 0;
+            int math2 = 0;
+            Random generator = new Random();
+            for (int i = 0 ; i<5 ; i++){
+                //math time
+                int random = generator.nextInt(6)+1;
+                total = random + total;
+                if(total <= 20){
+                    math = goal - total;
+                    System.out.println("ROLL # " + (i+1) + ": You've rolled a " + random + " You are now on space " + total + " and have " + math + " more to go!");
+                    //making sure it rolled 5 times
+                    if(total == 20 && i == 4){
+                        System.out.println("=========================");
+                        System.out.println("Congratulations, you won!");
+                        System.out.println("=========================");
+                    }
+                }
+                //end if already lost
+                if(total > 20){
+                    math2 = total - goal;
+                    System.out.println("Unfortunately, you lost. You are now on space " + total + ", you went over " + math2 + " space(s)!");
+                    break;
+                }
+            }
+        } while (option == 1);
+    }
+}
